@@ -5,7 +5,7 @@ import LoginPage from './LoginPage';
 import MainPage from './MainPage';
 import './index.css';
 
-function Root() {
+function App() {
   const [user, setUser] = useState(null);
    const login = (user) => setUser(user);
    const logout = () => setUser(null);
@@ -19,4 +19,4 @@ function Root() {
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Root />);
+root.render(<App />);
