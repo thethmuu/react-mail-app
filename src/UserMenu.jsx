@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import UserContext from './contexts/UserContext';
 
-const UserMenu = ({ currentUser, onLogout }) => {
+const UserMenu = () => {
   const [isMenuVisible, setMenuVisible] = useState(false);
   const avatarRef = useRef();
+  const { user, logout: onLogout } = useContext(UserContext);
 
   const hideMenu = (event) => {
     // Ignore clicks on the avatar
@@ -27,7 +29,7 @@ const UserMenu = ({ currentUser, onLogout }) => {
       <img
         className='UserAvatar'
         alt='User avatar'
-        src={currentUser.avatar}
+        src={user.avatar}
         onClick={toggleMenu}
         ref={avatarRef}
       />
