@@ -1,7 +1,7 @@
 import React from 'react';
 
-const MessageViewer = () => (
+const MessageDetail = () => (
   <div className='MessageViewer'>Select a message</div>
 );
 
-export default MessageViewer;
+export default MessageDetail;

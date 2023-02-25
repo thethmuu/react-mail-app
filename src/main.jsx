@@ -1,32 +1,27 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 
 import LoginPage from './LoginPage';
 import MainPage from './MainPage';
+import { UserProvider } from './contexts/UserContext';
 import './index.css';
 
 import UserContext from './contexts/UserContext';
+import { EmailProvider } from './contexts/EmailContext';
 
 // UserContext
 // Provider, Consumer
 
 function App() {
-  const [user, setUser] = useState(null);
-  const login = (user) => setUser(user);
-  const logout = () => setUser(null);
-
-  const contextValue = {
-    user,
-    login,
-    logout,
-  };
-
-  return (
-    <UserContext.Provider value={contextValue}>
-      {user ? <MainPage /> : <LoginPage />}
-    </UserContext.Provider>
-  );
+  const { user } = useContext(UserContext);
+  return user ? <MainPage /> : <LoginPage />;
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(
+  <UserProvider>
+    <EmailProvider>
+      <App />
+    </EmailProvider>
+  </UserProvider>
+);
