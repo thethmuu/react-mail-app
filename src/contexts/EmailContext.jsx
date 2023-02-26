@@ -6,6 +6,7 @@ import {
   useState,
 } from 'react';
 import { fetchEmails, fetchLatestEmails } from '../api';
+import { useToastContext } from './ToastContext';
 import { useUserContext } from './UserContext';
 
 const EmailContext = createContext();
@@ -51,6 +52,7 @@ export function EmailProvider({ children }) {
     currentEmail: null,
   });
   const { user } = useUserContext();
+  const { addMessage } = useToastContext();
 
   useEffect(() => {
     dispatch({ type: 'init' });
@@ -63,7 +65,11 @@ export function EmailProvider({ children }) {
     function refreshMails() {
       if (!state.loading) {
         fetchLatestEmails().then((emails) => {
-          dispatch({ type: 'add_more_emails', payload: emails });
+          if (emails.length > 0) {
+            dispatch({ type: 'add_more_emails', payload: emails });
+            const notiString = `${emails.length} emails arrived! 🍷`;
+            addMessage(notiString);
+          }
         });
       }
     }

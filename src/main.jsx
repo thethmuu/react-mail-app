@@ -8,6 +8,7 @@ import './index.css';
 
 import UserContext from './contexts/UserContext';
 import { EmailProvider } from './contexts/EmailContext';
+import { ToastProvider } from './contexts/ToastContext';
 
 // UserContext
 // Provider, Consumer
@@ -19,9 +20,11 @@ function App() {
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <UserProvider>
-    <EmailProvider>
-      <App />
-    </EmailProvider>
-  </UserProvider>
+  <ToastProvider>
+    <UserProvider>
+      <EmailProvider>
+        <App />
+      </EmailProvider>
+    </UserProvider>
+  </ToastProvider>
 );
