@@ -1,9 +1,10 @@
 import { createContext, useContext, useState } from 'react';
+import { FAKE_USER } from '../api';
 
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(FAKE_USER);
   const login = (user) => setUser(user);
   const logout = () => setUser(null);
 
