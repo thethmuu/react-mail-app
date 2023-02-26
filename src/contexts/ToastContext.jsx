@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const ToastContext = createContext();
 
@@ -11,6 +11,7 @@ export function ToastProvider({ children }) {
       {
         id: Math.random(),
         text,
+        createdAt: new Date().getTime(),
       },
     ]);
   };
@@ -18,6 +19,19 @@ export function ToastProvider({ children }) {
   const removeMessage = (msg) => {
     setMessages((messages) => messages.filter((m) => m !== msg));
   };
+
+  useEffect(() => {
+    function cleanNoti() {
+      const now = new Date().getTime();
+      setMessages((messages) =>
+        messages.filter((m) => now - m.createdAt < 3000)
+      );
+    }
+
+    const timer = setInterval(cleanNoti, 6000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const contextValue = {
     messages,
